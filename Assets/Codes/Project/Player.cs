@@ -1,3 +1,5 @@
+using PlatformShoot;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,10 +15,12 @@ namespace platformShoot
         private bool mCanDoubleJump = false;
         private int mJumpCount = 0;
         private const int MAX_JUMP_COUNT = 2;
+        private MainPanel mMainPanel;
 
         private void Start()
         {
             mRig = GetComponent<Rigidbody2D>();
+            mMainPanel = GameObject.Find("MainPanel").GetComponent<MainPanel>();
         }
 
         private void Update()
@@ -77,6 +81,11 @@ namespace platformShoot
             if (collision.gameObject.CompareTag("Heil"))
             {
                 SceneManager.LoadScene("GameFailScene");
+            }
+            if (collision.gameObject.CompareTag("Reward"))
+            {
+                GameObject.Destroy(collision.gameObject);
+                mMainPanel.UpdateScoreTex(1);
             }
         }
     }

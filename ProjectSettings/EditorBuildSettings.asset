@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GamePassScene.unity
     guid: a252ca077f4d7d24992b00116af273af
+  - enabled: 1
+    path: Assets/Scenes/GameFailScene.unity
+    guid: e7bded1b3a6b1ad4491c6c430ed6e440
   m_configObjects: {}
