@@ -6,6 +6,8 @@ namespace PlatformShoot
         private LayerMask mLayerMask;
         private GameObject mGamePass;
 
+        private int bullteDir;
+
         void Start()
         {
             GameObject.Destroy(this.gameObject, 3f);
@@ -17,10 +19,15 @@ namespace PlatformShoot
             mGamePass = pass;
         }
 
+        public void InitDir(int dir)
+        {
+            bullteDir = dir;
+        }
+
 
         void Update()
         {
-            transform.Translate(12 * Time.deltaTime, 0, 0);
+            transform.Translate(12 * bullteDir* Time.deltaTime, 0, 0);
         }
 
         private void FixedUpdate()

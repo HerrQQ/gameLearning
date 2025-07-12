@@ -1,6 +1,7 @@
 using PlatformShoot;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
 namespace platformShoot
@@ -19,6 +20,7 @@ namespace platformShoot
         private const float REWARD_COOLDOWN = 0.2f; // 至少0.2秒内不重复触发
         private MainPanel mMainPanel;
         private GameObject mGamePass;
+        private int mFaceDir = 1;
 
         private void Start()
         {
@@ -48,9 +50,16 @@ namespace platformShoot
 
             if (Input.GetKeyDown(KeyCode.J))
             {
-                var bullet = Resources.Load<GameObject>("Bullet");
-                bullet= GameObject.Instantiate(bullet, transform.position, Quaternion.identity);
-                bullet.GetComponent<Bullet>().GetGamePass(mGamePass);
+                //var bullet = Resources.Load<GameObject>("Bullet");
+                //bullet= GameObject.Instantiate(bullet, transform.position, Quaternion.identity);
+                //bullet.GetComponent<Bullet>().GetGamePass(mGamePass);
+                //bullet.InitDir(mFaceDir);
+                var obj = Resources.Load<GameObject>("Bullet");
+                obj = GameObject.Instantiate(obj, transform.position, Quaternion.identity);
+                Bullet bullet = obj.GetComponent<Bullet>();
+                bullet.GetGamePass(mGamePass);
+                bullet.InitDir(mFaceDir);
+
             }
         }
 
@@ -63,6 +72,12 @@ namespace platformShoot
             {
                 mRig.velocity = new Vector2(mRig.velocity.x, mJumpForce);
                 mShouldJump = false;
+            }
+
+            if (moveX!=0&& moveX!= mFaceDir)
+            {
+                mFaceDir = -1 * mFaceDir;
+                transform.Rotate(0,180,0);
             }
         }
 
