@@ -18,10 +18,13 @@ namespace platformShoot
         private float _lastRewardTime;
         private const float REWARD_COOLDOWN = 0.2f; // 至少0.2秒内不重复触发
         private MainPanel mMainPanel;
+        private GameObject mGamePass;
 
         private void Start()
         {
             mRig = GetComponent<Rigidbody2D>();
+            mGamePass = GameObject.Find("GamePass");
+            mGamePass.SetActive(false);
             mMainPanel = GameObject.Find("MainPanel").GetComponent<MainPanel>();
         }
 
@@ -46,7 +49,8 @@ namespace platformShoot
             if (Input.GetKeyDown(KeyCode.J))
             {
                 var bullet = Resources.Load<GameObject>("Bullet");
-                GameObject.Instantiate(bullet, transform.position, Quaternion.identity);
+                bullet= GameObject.Instantiate(bullet, transform.position, Quaternion.identity);
+                bullet.GetComponent<Bullet>().GetGamePass(mGamePass);
             }
         }
 
