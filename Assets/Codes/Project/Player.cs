@@ -15,6 +15,8 @@ namespace platformShoot
         private bool mCanDoubleJump = false;
         private int mJumpCount = 0;
         private const int MAX_JUMP_COUNT = 2;
+        private float _lastRewardTime;
+        private const float REWARD_COOLDOWN = 0.2f; // 至少0.2秒内不重复触发
         private MainPanel mMainPanel;
 
         private void Start()
@@ -82,9 +84,10 @@ namespace platformShoot
             {
                 SceneManager.LoadScene("GameFailScene");
             }
-            if (collision.gameObject.CompareTag("Reward"))
+            if (collision.CompareTag("Reward") && Time.time - _lastRewardTime > REWARD_COOLDOWN)
             {
-                GameObject.Destroy(collision.gameObject);
+                _lastRewardTime = Time.time;
+                Destroy(collision.gameObject);
                 mMainPanel.UpdateScoreTex(1);
             }
         }

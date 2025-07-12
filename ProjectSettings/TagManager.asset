@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Door
   - Heil
+  - Reward
   layers:
   - Default
   - TransparentFX
